@@ -3,21 +3,30 @@
 ```python
 from RSA306.reader import get_reader
 
-rsafile = get_reader('path/to/file.r3f')
+rsa_reader = get_reader('path/to/file.r3f')
 
-adc, center_frequency, if_center_frequency = rsafile.read()
+print(rsa_reader) # печатает информацию о файле
+print(rsa_reader.data_format.sample_rate)
+
+
+for adc_data in rsa_reader.readblock(2**16):
+    ...
 ```
 
 # Readers
+Для чтения данных необходимо использовать методы read и readblock.
+метод read считывает все данные из файла за раз. Метод readblock считывает 
+блоки данных по заданному размеру.
 
+Каждый ридер предоставляет следующие структуры data_format, instrument_state, version_info, channel_correction
+
+Предусмотрена функция get_reader самостоятельно определяющая какой ридер нужно отдать для переданного файла
 ## Reader
-Читает r3f файлы. Доступны Footer данные
-```python
+Читает r3f файлы. метод readblock умеет возвращать заголовки каждого фрейма данных
 ...
-footer : List[Footer] = r3ffile.footerData
-...
-```
-
 ## RawReader
 По мимо файла r3a рядом должен лежать файл с заголовками r3h. Класс также может отработать и с передачей ему пути к 
 r3h файлу, автоматически открыв нужные файлы 
+...
+## Вспомогательне инструменты по обработке сигналов
+Вспомогательные инстурменты по обработке сигналов находятся в RSA306.conversion

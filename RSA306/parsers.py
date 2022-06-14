@@ -4,7 +4,7 @@ from struct import unpack
 from RSA306.rc import BYTES_PER_SAMPLE, BYTES_PER_SAMPLE_SIGN, FREQ_INDEX_LENGTH, PHASE_INDEX_LENGTH
 
 
-def parse_version_info(raw_bytes: bytes) -> None:
+def parse_version_info(raw_bytes: bytes) -> VersionInfo:
 	""" Извлекает данные версии устройства и файла из заголовка """
 
 	file_id = "".join(map(chr, raw_bytes[:27]))
